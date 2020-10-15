@@ -1,0 +1,20 @@
+{
+  "name": "toy",
+  "version": "1.0.0",
+  "description": "toy language",
+  "main": "main.ts",
+  "scripts": {
+    "grm": "nearleyc src/pua.ne -o src/grammar.js",
+    "test": "ts-node main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/nearley": "^2.11.1",
+    "@types/node": "^14.11.8",
+    "moo": "^0.5.1",
+    "nearley": "^2.19.7",
+    "nearly": "^1.8.1"
+  }
+}
