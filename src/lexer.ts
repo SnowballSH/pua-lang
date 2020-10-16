@@ -36,6 +36,7 @@ var lexer = moo.compile({
   rparen: ")",
   lbrace: "{",
   rbrace: "}",
+  comma: ",",
   return_: ["return"],
   iden: /[A-Za-z_][\w]*/,
   eq: "=",

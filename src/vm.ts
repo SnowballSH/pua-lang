@@ -3,7 +3,11 @@ const dt = require("./datatypes.ts");
 class VM {
   constructor() {}
 
-  storage = {};
+  storage = {
+    log: new dt._NativeFunction([
+      new dt._NativeFunction(() => console.log(4444)),
+    ]),
+  };
 
   run(ast: Array<any>) {
     ast.forEach((node) => {
@@ -13,6 +17,9 @@ class VM {
   }
 
   runFunc(ast: Array<any>) {
+    if (ast[0].type === "NativeFunction") {
+      return ast[0].value();
+    }
     ast.forEach((node) => {
       var res = this.visit(node);
       if (res.type === "return") {

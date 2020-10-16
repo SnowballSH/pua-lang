@@ -13,7 +13,7 @@ function main() {
 
   let myVm = new vm.VM();
   myVm.run(res);
-  see(myVm.storage);
+  //see(myVm.storage);
   return 0;
 }
 

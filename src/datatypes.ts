@@ -32,6 +32,14 @@ class _Function extends BaseObject {
   }
 }
 
+class _NativeFunction extends BaseObject {
+  constructor(value: any) {
+    super(value);
+    this.type = "NativeFunction";
+    this.callable = true;
+  }
+}
+
 class _Return extends BaseObject {
   constructor(value: any) {
     super(value);
@@ -39,4 +47,11 @@ class _Return extends BaseObject {
   }
 }
 
-module.exports = {BaseObject, _Function, _Integer, _String, _Return}
+module.exports = {
+  BaseObject,
+  _Function,
+  _NativeFunction,
+  _Integer,
+  _String,
+  _Return,
+};
