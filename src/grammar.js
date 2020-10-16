@@ -10,12 +10,15 @@ function id(x) { return x[0]; }
 var grammar = {
     Lexer: lexer,
     ParserRules: [
-    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("lparen") ? {type: "lparen"} : lparen), "_", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
-        ([a,,,,]) => {
+    {"name": "funcAccess$ebnf$1$subexpression$1", "symbols": ["funcBlock", "_"]},
+    {"name": "funcAccess$ebnf$1", "symbols": ["funcAccess$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "funcAccess$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("lparen") ? {type: "lparen"} : lparen), "_", "funcAccess$ebnf$1", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
+        ([a,,,,block,]) => {
           return {
             type: "funcAccess",
             name: a.value,
-            value: a.value,
+            value: block ? block[0] : [],
           }
         }
           },
@@ -28,6 +31,14 @@ var grammar = {
           }
         }
           },
+    {"name": "argBlock", "symbols": ["argBlock", "_", (lexer.has("comma") ? {type: "comma"} : comma), "_", (lexer.has("iden") ? {type: "iden"} : iden)], "postprocess": 
+        ([a,,,,b]) => [...a,b]
+        },
+    {"name": "argBlock", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden)], "postprocess": () => id().value},
+    {"name": "funcBlock", "symbols": ["funcBlock", "_", (lexer.has("comma") ? {type: "comma"} : comma), "_", "expr"], "postprocess": 
+        ([a,,,,b]) => [...a,b]
+        },
+    {"name": "funcBlock", "symbols": ["expr"], "postprocess": id},
     {"name": "_$ebnf$1", "symbols": []},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("WS") ? {type: "WS"} : WS)]},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("NL") ? {type: "NL"} : NL)]},
@@ -61,17 +72,7 @@ var grammar = {
     {"name": "expr", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)], "postprocess": id},
     {"name": "expr", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "expr", "symbols": ["funcAccess"], "postprocess": id},
-    {"name": "expr", "symbols": ["varAccess"], "postprocess": id},
-    {"name": "expr", "symbols": ["return_"], "postprocess": id},
-    {"name": "return_", "symbols": [(lexer.has("return_") ? {type: "return_"} : return_), "_", "expr"], "postprocess": 
-        ([,,a]) => {
-          return {
-            type: "return",
-            name: "return",
-            value: a,
-          }
-        }
-            }
+    {"name": "expr", "symbols": ["varAccess"], "postprocess": id}
 ]
   , ParserStart: "init"
 }

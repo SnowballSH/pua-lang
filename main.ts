@@ -1,5 +1,6 @@
 const parse = require("./src/parser.ts");
-const vm = require("./src/vm.ts");
+const cp = require("./src/compile.ts");
+var fs = require("fs");
 const see = console.log;
 
 function main() {
@@ -11,9 +12,7 @@ function main() {
     return 1;
   }
 
-  let myVm = new vm.VM();
-  myVm.run(res);
-  //see(myVm.storage);
+  fs.writeFileSync("./test.ts", cp.run(res));
   return 0;
 }
 

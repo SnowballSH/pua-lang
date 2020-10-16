@@ -44,15 +44,3 @@ expr
   |  %string      {% id %}
   |  funcAccess   {% id %}
   |  varAccess    {% id %}
-  |  return_      {% id %}
-
-return_ -> %return_ _ expr
-    {%
-      ([,,a]) => {
-        return {
-          type: "return",
-          name: "return",
-          value: a,
-        }
-      }
-    %}
