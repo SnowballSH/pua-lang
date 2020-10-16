@@ -1,43 +1,4 @@
-class BaseObject {
-  constructor(value: any) {
-    this.value = value;
-    this.type = "BaseObject";
-    this.callable = false;
-  }
-
-  value: any;
-  type: string;
-  callable: boolean;
-}
-
-class _Integer extends BaseObject {
-  constructor(value: any) {
-    super(value);
-    this.type = "Integer";
-  }
-}
-
-class _String extends BaseObject {
-  constructor(value: any) {
-    super(value);
-    this.type = "String";
-  }
-}
-
-class _Function extends BaseObject {
-  constructor(value: any) {
-    super(value);
-    this.type = "Function";
-    this.callable = true;
-  }
-}
-
-class _Return extends BaseObject {
-  constructor(value: any) {
-    super(value);
-    this.type = "Return";
-  }
-}
+const dt = require("./datatypes.ts");
 
 class VM {
   constructor() {}
@@ -58,7 +19,7 @@ class VM {
         return res.value;
       }
     });
-    return new BaseObject(null);
+    return new dt.BaseObject(null);
   }
 
   visit(node: any) {
@@ -66,14 +27,14 @@ class VM {
     switch (kind) {
       case "varAssign":
         this.storage[node.name] = this.visit(node.value);
-        return new BaseObject(null);
+        return new dt.BaseObject(null);
 
       case "varAccess":
         if (node.name in this.storage) {
           return this.storage[node.name];
         } else {
           console.error(`Name '${node.name}' is not defined`);
-          return new BaseObject(undefined);
+          return new dt.BaseObject(undefined);
         }
 
       case "funcAccess":
@@ -81,27 +42,27 @@ class VM {
           var obj = this.storage[node.name];
           if (!obj.callable) {
             console.error(`Name '${node.name}' is not callable`);
-            return new BaseObject(undefined);
+            return new dt.BaseObject(undefined);
           }
           this.runFunc(obj.value);
-          return new BaseObject(null);
+          return new dt.BaseObject(null);
         } else {
           console.error(`Name '${node.name}' is not defined`);
-          return new BaseObject(undefined);
+          return new dt.BaseObject(undefined);
         }
 
       case "funcAssign":
-        this.storage[node.name] = new _Function(node.value);
-        return new BaseObject(null);
+        this.storage[node.name] = new dt._Function(node.value);
+        return new dt.BaseObject(null);
 
       case "integer":
-        return new _Integer(parseInt(node.value));
+        return new dt._Integer(parseInt(node.value));
 
       case "string":
-        return new _String(node.value);
+        return new dt._String(node.value);
 
       case "return":
-        return new _Return(this.visit(node.value));
+        return new dt._Return(this.visit(node.value));
 
       default:
         return node.value;
@@ -109,4 +70,4 @@ class VM {
   }
 }
 
-module.exports = { VM, BaseObject };
+module.exports = { VM };

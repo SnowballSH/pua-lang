@@ -1,5 +1,3 @@
-import { mainModule } from "process";
-
 const parse = require("./src/parser.ts");
 const vm = require("./src/vm.ts");
 const see = console.log;
