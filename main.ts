@@ -5,14 +5,14 @@ const see = console.log;
 
 function main() {
   try {
-    var res: Array<any> = parse("./test.pua");
+    var res: Array<any> = parse("./test/test.pua");
   } catch (error) {
     console.error("Error while parsing:");
     console.error(error.message.split("\n", 3).join("\n") + "\n");
     return 1;
   }
 
-  fs.writeFileSync("./test.ts", cp.run(res));
+  fs.writeFileSync("./test/test.ts", cp.run(res));
   return 0;
 }
 

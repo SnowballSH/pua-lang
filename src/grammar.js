@@ -10,15 +10,12 @@ function id(x) { return x[0]; }
 var grammar = {
     Lexer: lexer,
     ParserRules: [
-    {"name": "funcAccess$ebnf$1$subexpression$1", "symbols": ["funcBlock", "_"]},
-    {"name": "funcAccess$ebnf$1", "symbols": ["funcAccess$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "funcAccess$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("lparen") ? {type: "lparen"} : lparen), "_", "funcAccess$ebnf$1", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
-        ([a,,,,block,]) => {
+    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("lparen") ? {type: "lparen"} : lparen), "_", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
+        ([a,,,,]) => {
           return {
             type: "funcAccess",
             name: a.value,
-            value: block ? block[0] : [],
+            value: a.value,
           }
         }
           },
@@ -31,14 +28,6 @@ var grammar = {
           }
         }
           },
-    {"name": "argBlock", "symbols": ["argBlock", "_", (lexer.has("comma") ? {type: "comma"} : comma), "_", (lexer.has("iden") ? {type: "iden"} : iden)], "postprocess": 
-        ([a,,,,b]) => [...a,b]
-        },
-    {"name": "argBlock", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden)], "postprocess": () => id().value},
-    {"name": "funcBlock", "symbols": ["funcBlock", "_", (lexer.has("comma") ? {type: "comma"} : comma), "_", "expr"], "postprocess": 
-        ([a,,,,b]) => [...a,b]
-        },
-    {"name": "funcBlock", "symbols": ["expr"], "postprocess": id},
     {"name": "_$ebnf$1", "symbols": []},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("WS") ? {type: "WS"} : WS)]},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("NL") ? {type: "NL"} : NL)]},
