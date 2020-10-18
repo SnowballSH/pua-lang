@@ -60,7 +60,7 @@ a = "I can be reused"
 ##### Function Assignment
 
 ```javascript
-myFunc = function (arg1, arg2, arg3) {
+function myFunc (arg1, arg2, arg3) {
   log! arg1, arg2, arg3
 }
 ```
