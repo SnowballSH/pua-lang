@@ -49,6 +49,8 @@ log! "Hello,", "world!"
 log < "Hello,", "world!" >
 ```
 
+### Tip: using "!" to invoke function may cause ambigious parsing - it may not generate the result you want. Therefore, <> is a better solution.
+
 ##### Variable Assignment
 
 ```python
