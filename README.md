@@ -15,6 +15,7 @@ Have fun!
 Example:
 
 ```javascript
+str = "SFSF"
 function fn(a, b0) {
   log(b0);
   log(a);
@@ -25,7 +26,7 @@ function fn(a, b0) {
   lo();
 }
 
-fn(102908279627925, "SFSF");
+fn(102908279627925, str);
 ```
 
 Will be compiled to
@@ -40,15 +41,16 @@ const error = console.error;
 
 // Main
 
-function fn(a, b0) {
-  log(b0);
-  log(a);
-  function lo() {
-    console.log(`${a} b0`);
-  }
-  lo();
+var str = "SFSF"
+function fn (a, b0) {
+log(b0);
+log(a);
+function lo() {
+console.log(`${a} b0`);
 }
-fn(102908279627925, "SFSF");
+lo();
+}
+fn(102908279627925, (str));
 ```
 
 And will be evaluated to
