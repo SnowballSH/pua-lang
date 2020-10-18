@@ -116,12 +116,19 @@ var grammar = {
           }
         }
           },
-    {"name": "expr", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)], "postprocess": id},
-    {"name": "expr", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
-    {"name": "expr", "symbols": ["funcAccess"], "postprocess": id},
-    {"name": "expr", "symbols": ["varAccess"], "postprocess": id},
-    {"name": "expr", "symbols": ["arrowFuncAssign"], "postprocess": id},
-    {"name": "expr", "symbols": ["js"], "postprocess": id}
+    {"name": "expr", "symbols": ["factor"], "postprocess": id},
+    {"name": "expr", "symbols": ["binOp"], "postprocess": id},
+    {"name": "factor", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)], "postprocess": id},
+    {"name": "factor", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
+    {"name": "factor", "symbols": ["funcAccess"], "postprocess": id},
+    {"name": "factor", "symbols": ["varAccess"], "postprocess": id},
+    {"name": "factor", "symbols": ["arrowFuncAssign"], "postprocess": id},
+    {"name": "factor", "symbols": ["js"], "postprocess": id},
+    {"name": "binOp", "symbols": ["expr", "_", (lexer.has("op") ? {type: "op"} : op), "_", "factor"], "postprocess": 
+        ([a,,op,,b]) => {
+          return {type: "binOp", value: [a,op,b]}
+        }
+          }
 ]
   , ParserStart: "init"
 }

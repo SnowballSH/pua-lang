@@ -7,12 +7,6 @@ const error = console.error;
 
 // Main
 
-function fn (a, b0) {
-log(b0)
-log(a)
-function lo () {
-console.log(`${a} b0`)
-}
-lo()
-}
-fn(102908279627925, ("SFSF"))
+var two = 2;
+log(1 + two * 3)
+log(4 / two - 8)

@@ -61,9 +61,21 @@ varAssign
   %}
 
 expr
+  -> factor       {% id %}
+  |  binOp        {% id %}
+
+factor
   -> %integer     {% id %}
   |  %string      {% id %}
   |  funcAccess   {% id %}
   |  varAccess    {% id %}
   |  arrowFuncAssign    {% id %}
   |  js           {% id %}
+
+binOp
+  -> expr _ %op _ factor
+  {%
+    ([a,,op,,b]) => {
+      return {type: "binOp", value: [a,op,b]}
+    }
+  %}

@@ -48,6 +48,9 @@ function visit(node: any) {
     case "js":
       return `${node.value}`.trim();
 
+    case "binOp":
+      return `${node.value.map((x: any) => visit(x)).join(" ")}`;
+
     default:
       return node.value;
   }
