@@ -1,3 +1,3 @@
 run:
-	ts-node main.ts test/test.pua
-	node test/test.js
+	node main.js test/test.pua
+	node test/test.pua.js

@@ -1,5 +1,2 @@
 x = '   trim me   '
 log! (js"x.trim()")
-
-// Output
-// trim me

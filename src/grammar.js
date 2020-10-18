@@ -3,10 +3,10 @@
 (function () {
 function id(x) { return x[0]; }
 
-  var lexer = require('./lexer.ts');
+  var lexer = require('./lexer.js');
 
 
-  var lexer = require('./lexer.ts');
+  var lexer = require('./lexer.js');
 var grammar = {
     Lexer: lexer,
     ParserRules: [

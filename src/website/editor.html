@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<title>Pua Editor</title>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css"
+  />
+
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js"
+  ></script>
+
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js"
+  ></script>
+
+  <link rel="stylesheet" href="./editor.css" />
+</head>
+
+<body>
+  <div class="code">
+    <div class="editor">
+      <script>
+        CodeMirror(document.querySelector(".editor"), {
+          lineNumbers: true,
+          tabSize: 2,
+          value: 'console.log("Hello, World");',
+          mode: "javascript",
+          theme: "monokai",
+        }).on("change", function (cm) {
+          showArea.setValue(cm.getValue());
+        });
+      </script>
+    </div>
+    <div class="show">
+      <script>
+        var showArea = CodeMirror(document.querySelector(".show"), {
+          lineNumbers: true,
+          tabSize: 2,
+          value: 'console.log("Hello, World");',
+          mode: "javascript",
+          theme: "monokai",
+          readOnly: true,
+        });
+      </script>
+    </div>
+  </div>
+</body>

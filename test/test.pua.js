@@ -7,7 +7,5 @@ const error = console.error;
 
 // Main
 
-var x = `   trim me   `;
-log(x.trim());
-// Output
-// trim me
+var x = (`   trim me   `);
+log((x.trim()))

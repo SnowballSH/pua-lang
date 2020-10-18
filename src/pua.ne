@@ -1,5 +1,5 @@
 @{%
-  var lexer = require('./lexer.ts');
+  var lexer = require('./lexer.js');
 %}
 
 @include "./factors.ne"

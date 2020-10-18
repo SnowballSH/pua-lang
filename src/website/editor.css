@@ -1,0 +1,23 @@
+body {
+  background-color: #48484e;
+}
+
+.editor {
+  width: 50%;
+  float: left;
+  border: 5px solid #2a2a2e;
+  border-radius: 1%;
+  margin: 20px;
+}
+
+.show {
+  width: 40%;
+  float: left;
+  border: 5px solid #2a2a2e;
+  border-radius: 1%;
+  margin: 20px;
+}
+
+.code {
+  padding: 5px;
+}
