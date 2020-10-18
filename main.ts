@@ -4,8 +4,14 @@ var fs = require("fs");
 const see = console.log;
 
 function main() {
+  if (process.argv.length < 3) {
+    console.error("File name expected");
+    return 1;
+  }
+  const fn = process.argv[2];
+
   try {
-    var res: Array<any> = parse("./test/test.pua");
+    var res: Array<any> = parse(fn);
   } catch (error) {
     console.error("Error while parsing:");
     console.error(error.message.split("\n", 3).join("\n") + "\n");
