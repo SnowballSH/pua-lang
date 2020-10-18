@@ -44,6 +44,22 @@ var grammar = {
           return [...a,b]
         }
           },
+    {"name": "comment", "symbols": [(lexer.has("comment") ? {type: "comment"} : comment)], "postprocess": 
+        ([c]) => {
+          return {
+            type: "comment",
+            value: c,
+          }
+        }
+          },
+    {"name": "js", "symbols": [(lexer.has("js") ? {type: "js"} : js), "_", (lexer.has("string") ? {type: "string"} : string)], "postprocess": 
+        ([,,b]) => {
+          return {
+            type: "js",
+            value: b,
+          }
+        }
+          },
     {"name": "_$ebnf$1", "symbols": []},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("WS") ? {type: "WS"} : WS)]},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("NL") ? {type: "NL"} : NL)]},
@@ -105,14 +121,7 @@ var grammar = {
     {"name": "expr", "symbols": ["funcAccess"], "postprocess": id},
     {"name": "expr", "symbols": ["varAccess"], "postprocess": id},
     {"name": "expr", "symbols": ["arrowFuncAssign"], "postprocess": id},
-    {"name": "comment", "symbols": [(lexer.has("comment") ? {type: "comment"} : comment)], "postprocess": 
-        ([c]) => {
-          return {
-            type: "comment",
-            value: c,
-          }
-        }
-          }
+    {"name": "expr", "symbols": ["js"], "postprocess": id}
 ]
   , ParserStart: "init"
 }

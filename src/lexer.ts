@@ -18,6 +18,13 @@ var lexer: any = moo.compile({
       },
     },
     {
+      match: /``[^]*?``/,
+      lineBreaks: true,
+      value: function (x) {
+        return x.slice(3, -3);
+      },
+    },
+    {
       match: /"(?:\\["\\rn]|[^"\\])*?"/,
       lineBreaks: true,
       value: function (x) {
@@ -39,6 +46,7 @@ var lexer: any = moo.compile({
   comma: ",",
 
   func: "function",
+  js: "js",
 
   iden: /[A-Za-z_][\w]*/,
   eq: "=",

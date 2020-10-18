@@ -11,10 +11,10 @@ init -> multi:* {% id %}
 multi -> _ stmt _ {% ([,s,]) => s %}
 
 stmt 
-  -> funcAssign         {% id %}
-  |  varAssign          {% id %}
-  |  expr               {% id %}
-  |  comment            {% id %}
+  -> funcAssign    {% id %}
+  |  varAssign     {% id %}
+  |  expr          {% id %}
+  |  comment       {% id %}
 
 arrowFuncAssign
   -> %iden _ %lparen _ (idenBlock _):? %rparen _ %eq _ expr
@@ -66,14 +66,4 @@ expr
   |  funcAccess   {% id %}
   |  varAccess    {% id %}
   |  arrowFuncAssign    {% id %}
-
-comment
-  -> %comment
-  {%
-    ([c]) => {
-      return {
-        type: "comment",
-        value: c,
-      }
-    }
-  %}
+  |  js           {% id %}

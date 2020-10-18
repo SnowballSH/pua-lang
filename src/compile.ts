@@ -34,9 +34,7 @@ function visit(node: any) {
     case "funcAssign":
       return `function ${node.name} (${node.args
         .map((x: any) => visit(x))
-        .join(", ")}) {\n\t${node.value
-        .map((x: any) => visit(x))
-        .join("\n\t")}\n}`;
+        .join(", ")}) {\n${node.value.map((x: any) => visit(x)).join("\n")}\n}`;
 
     case "integer":
       return `${parseInt(node.value)}`;
@@ -46,6 +44,9 @@ function visit(node: any) {
 
     case "comment":
       return `//${node.value}`;
+
+    case "js":
+      return `${node.value}`.trim();
 
     default:
       return node.value;

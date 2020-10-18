@@ -47,4 +47,26 @@ argBlock
     }
   %}
 
+comment
+  -> %comment
+  {%
+    ([c]) => {
+      return {
+        type: "comment",
+        value: c,
+      }
+    }
+  %}
+
+js
+  -> %js _ %string
+  {%
+    ([,,b]) => {
+      return {
+        type: "js",
+        value: b,
+      }
+    }
+  %}
+
 _ -> (%WS | %NL):* {% id %}

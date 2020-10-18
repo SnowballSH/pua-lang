@@ -9,7 +9,7 @@ function main() {
   } catch (error) {
     console.error("Error while parsing:");
     console.error(error.message.split("\n", 3).join("\n") + "\n");
-    console.error(error);
+    //console.error(error);
     return 1;
   }
 
