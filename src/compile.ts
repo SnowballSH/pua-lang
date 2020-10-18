@@ -40,7 +40,7 @@ function visit(node: any) {
       return `${parseInt(node.value)}`;
 
     case "string":
-      return `("${node.value}")`;
+      return `(\`${node.value}\`)`;
 
     case "comment":
       return `//${node.value}`;
