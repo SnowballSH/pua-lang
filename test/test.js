@@ -1,5 +1,5 @@
 /*
-Auto-generated code by Toy Programming Language
+Auto-generated code by Pua Programming Language
 */
 
 const log = console.log;
