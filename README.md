@@ -16,8 +16,6 @@ Have fun!
 
 ## Language Tour
 
-***
-
 ##### Comment
 
 ```javascript
