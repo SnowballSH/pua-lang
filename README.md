@@ -34,7 +34,7 @@ log! 1  // me too
 
 ```javascript
 "I am a simple string in pua"
-'Me too"
+'Me too'
 ``
 Same!
 But I can do
