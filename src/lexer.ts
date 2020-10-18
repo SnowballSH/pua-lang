@@ -44,7 +44,10 @@ var lexer: any = moo.compile({
   lbrace: "{",
   rbrace: "}",
   comma: ",",
+  ltri: "<",
+  rtri: ">",
   op: ["+", "-", "*", "/"],
+  excl: "!",
 
   func: "function",
   js: "js",

@@ -68,9 +68,21 @@ factor
   -> %integer     {% id %}
   |  %string      {% id %}
   |  funcAccess   {% id %}
-  |  varAccess    {% id %}
   |  arrowFuncAssign    {% id %}
+  |  varAccess    {% id %}
   |  js           {% id %}
+  |  wrap         {% id %}
+
+wrap
+  -> %lparen _ expr _ %rparen
+  {%
+    ([,,exp,,]) => {
+      return {
+        type: "wrap",
+        value: exp,
+      }
+    }
+  %}
 
 binOp
   -> expr _ %op _ factor

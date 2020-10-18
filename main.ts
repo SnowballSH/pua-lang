@@ -12,6 +12,7 @@ function main() {
 
   try {
     var res: Array<any> = parse(fn);
+    //console.log(res);
   } catch (error) {
     console.error("Error while parsing:");
     console.error(error.message.split("\n", 3).join("\n") + "\n");

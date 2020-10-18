@@ -5,9 +5,20 @@
 @lexer lexer
 
 funcAccess
-  -> %iden _ %lparen _ (argBlock _):? %rparen
+  -> %iden _ %ltri _ (argBlock _):? _ %rtri
   {%
     ([a,,,,b,]) => {
+      return {
+        type: "funcAccess",
+        args: b ? b[0] : [],
+        name: a.value,
+        value: a.value,
+      }
+    }
+  %}
+  |  %iden %excl _ (argBlock _):? _
+  {%
+    ([a,,,b,]) => {
       return {
         type: "funcAccess",
         args: b ? b[0] : [],

@@ -13,8 +13,21 @@ var grammar = {
     {"name": "funcAccess$ebnf$1$subexpression$1", "symbols": ["argBlock", "_"]},
     {"name": "funcAccess$ebnf$1", "symbols": ["funcAccess$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "funcAccess$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("lparen") ? {type: "lparen"} : lparen), "_", "funcAccess$ebnf$1", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
+    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("ltri") ? {type: "ltri"} : ltri), "_", "funcAccess$ebnf$1", "_", (lexer.has("rtri") ? {type: "rtri"} : rtri)], "postprocess": 
         ([a,,,,b,]) => {
+          return {
+            type: "funcAccess",
+            args: b ? b[0] : [],
+            name: a.value,
+            value: a.value,
+          }
+        }
+          },
+    {"name": "funcAccess$ebnf$2$subexpression$1", "symbols": ["argBlock", "_"]},
+    {"name": "funcAccess$ebnf$2", "symbols": ["funcAccess$ebnf$2$subexpression$1"], "postprocess": id},
+    {"name": "funcAccess$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "funcAccess", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), (lexer.has("excl") ? {type: "excl"} : excl), "_", "funcAccess$ebnf$2", "_"], "postprocess": 
+        ([a,,,b,]) => {
           return {
             type: "funcAccess",
             args: b ? b[0] : [],
@@ -121,9 +134,18 @@ var grammar = {
     {"name": "factor", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)], "postprocess": id},
     {"name": "factor", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "factor", "symbols": ["funcAccess"], "postprocess": id},
-    {"name": "factor", "symbols": ["varAccess"], "postprocess": id},
     {"name": "factor", "symbols": ["arrowFuncAssign"], "postprocess": id},
+    {"name": "factor", "symbols": ["varAccess"], "postprocess": id},
     {"name": "factor", "symbols": ["js"], "postprocess": id},
+    {"name": "factor", "symbols": ["wrap"], "postprocess": id},
+    {"name": "wrap", "symbols": [(lexer.has("lparen") ? {type: "lparen"} : lparen), "_", "expr", "_", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
+        ([,,exp,,]) => {
+          return {
+            type: "wrap",
+            value: exp,
+          }
+        }
+          },
     {"name": "binOp", "symbols": ["expr", "_", (lexer.has("op") ? {type: "op"} : op), "_", "factor"], "postprocess": 
         ([a,,op,,b]) => {
           return {type: "binOp", value: [a,op,b]}

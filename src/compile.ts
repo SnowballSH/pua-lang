@@ -51,6 +51,9 @@ function visit(node: any) {
     case "binOp":
       return `${node.value.map((x: any) => visit(x)).join(" ")}`;
 
+    case "wrap":
+      return `(${visit(node.value)})`;
+
     default:
       return node.value;
   }
