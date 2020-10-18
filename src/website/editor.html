@@ -35,7 +35,10 @@
           mode: "javascript",
           theme: "monokai",
         }).on("change", function (cm) {
-          showArea.setValue(cm.getValue());
+          var res = runCode(cm.getValue());
+          if (res !== 1) {
+            showArea.setValue(res);
+          }
         });
       </script>
     </div>

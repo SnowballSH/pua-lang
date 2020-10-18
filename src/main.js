@@ -1,6 +1,7 @@
-var parse = require("./src/parser.js");
-var cp = require("./src/compile.js");
+var parse = require("./parser.js");
+var cp = require("./compile.js");
 var fs = require("fs");
+
 function runCode(code) {
   try {
     var res = parse(code);
