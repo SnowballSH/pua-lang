@@ -7,6 +7,8 @@ const error = console.error;
 
 // Main
 
-var g = (x, y) => {return (y)}
-//  comment
-(log((g((2), (5)))))
+function fn (a, b0) {
+	log(b0)
+	log(a)
+}
+fn(1, ("HWLE"))

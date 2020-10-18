@@ -53,7 +53,7 @@ var grammar = {
     {"name": "init$ebnf$1", "symbols": ["init$ebnf$1", "multi"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "init", "symbols": ["init$ebnf$1"], "postprocess": id},
     {"name": "multi", "symbols": ["_", "stmt", "_"], "postprocess": ([,s,]) => s},
-    {"name": "stmt", "symbols": ["arrowFuncAssign"], "postprocess": id},
+    {"name": "stmt", "symbols": ["funcAssign"], "postprocess": id},
     {"name": "stmt", "symbols": ["varAssign"], "postprocess": id},
     {"name": "stmt", "symbols": ["expr"], "postprocess": id},
     {"name": "stmt", "symbols": ["comment"], "postprocess": id},
@@ -73,6 +73,24 @@ var grammar = {
           }
         }
           },
+    {"name": "funcAssign$ebnf$1$subexpression$1", "symbols": ["idenBlock", "_"]},
+    {"name": "funcAssign$ebnf$1", "symbols": ["funcAssign$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "funcAssign$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "funcAssign$ebnf$2", "symbols": []},
+    {"name": "funcAssign$ebnf$2", "symbols": ["funcAssign$ebnf$2", "multi"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "funcAssign", "symbols": [(lexer.has("func") ? {type: "func"} : func), "_", (lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("lparen") ? {type: "lparen"} : lparen), "_", "funcAssign$ebnf$1", (lexer.has("rparen") ? {type: "rparen"} : rparen), "_", (lexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "funcAssign$ebnf$2", "_", (lexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        (k) => {
+          a = k[2]
+          b = k[11]
+          j = k[6]
+          return {
+            type: "funcAssign",
+            args: j ? j[0] : [],
+            name: a,
+            value: b,
+          }
+        }
+          },
     {"name": "varAssign", "symbols": [(lexer.has("iden") ? {type: "iden"} : iden), "_", (lexer.has("eq") ? {type: "eq"} : eq), "_", "expr"], "postprocess": 
         ([b,,,,c]) => {
           return {
@@ -86,6 +104,7 @@ var grammar = {
     {"name": "expr", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "expr", "symbols": ["funcAccess"], "postprocess": id},
     {"name": "expr", "symbols": ["varAccess"], "postprocess": id},
+    {"name": "expr", "symbols": ["arrowFuncAssign"], "postprocess": id},
     {"name": "comment", "symbols": [(lexer.has("comment") ? {type: "comment"} : comment)], "postprocess": 
         ([c]) => {
           return {

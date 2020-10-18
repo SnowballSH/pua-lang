@@ -1,5 +1,6 @@
-g(x, y) = y
+function fn  (a, b0) {
+  log(b0)
+  log(a)
+}
 
-// comment
-
-log(g(2, 5))
+fn(1, "HWLE")

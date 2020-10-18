@@ -21,17 +21,22 @@ function visit(node: any) {
       return `var ${node.name} = ${visit(node.value)};`;
 
     case "varAccess":
-      return `(${node.name})`;
+      return `${node.name}`;
 
     case "funcAccess":
-      return `(${node.name}(${node.args
-        .map((x: any) => visit(x))
-        .join(", ")}))`;
+      return `${node.name}(${node.args.map((x: any) => visit(x)).join(", ")})`;
 
     case "arrowFuncAssign":
       return `var ${node.name} = (${node.args
         .map((x: any) => visit(x))
         .join(", ")}) => {return ${run(node.value)}}`;
+
+    case "funcAssign":
+      return `function ${node.name} (${node.args
+        .map((x: any) => visit(x))
+        .join(", ")}) {\n\t${node.value
+        .map((x: any) => visit(x))
+        .join("\n\t")}\n}`;
 
     case "integer":
       return `${parseInt(node.value)}`;
