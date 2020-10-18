@@ -1,5 +1,5 @@
-var moo = require("moo");
-var lexer = moo.compile({
+var moo: any = require("moo");
+var lexer: any = moo.compile({
   WS: /[ \t]+/,
   comment: {
     match: /\/\/.*?$/,

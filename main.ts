@@ -9,10 +9,11 @@ function main() {
   } catch (error) {
     console.error("Error while parsing:");
     console.error(error.message.split("\n", 3).join("\n") + "\n");
+    console.error(error);
     return 1;
   }
 
-  fs.writeFileSync("./test/test.ts", cp.run(res));
+  fs.writeFileSync("./test/test.js", cp.compile(res));
   return 0;
 }
 

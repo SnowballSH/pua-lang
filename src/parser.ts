@@ -3,13 +3,15 @@ const grammar = require("./grammar.js");
 var fs = require("fs");
 
 function _parse(filename: String) {
-  const code = fs.readFileSync(filename).toString();
-  const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+  const code: string = fs.readFileSync(filename).toString();
+  const parser: nearley.Parser = new nearley.Parser(
+    nearley.Grammar.fromCompiled(grammar)
+  );
 
   parser.feed(code);
 
   function makeAST() {
-    const ast = parser.results[0];
+    const ast: any = parser.results[0];
     return ast;
   }
 

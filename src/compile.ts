@@ -1,3 +1,11 @@
+var fs = require("fs");
+
+function compile(ast: Array<any>) {
+  const res: string = run(ast);
+  const builtin: string = fs.readFileSync("src/builtin.js").toString();
+  return builtin + "\n// Main\n\n" + res;
+}
+
 function run(ast: Array<any>) {
   var str: Array<string> = [];
   ast.forEach((node) => {
@@ -13,23 +21,30 @@ function visit(node: any) {
       return `var ${node.name} = ${visit(node.value)};`;
 
     case "varAccess":
-      return `${node.name}`;
+      return `(${node.name})`;
 
     case "funcAccess":
-      return `${node.name}();`;
+      return `(${node.name}(${node.args
+        .map((x: any) => visit(x))
+        .join(", ")}))`;
 
-    case "funcAssign":
-      return `function ${node.name}() {\n${run(node.value)}\n}`;
+    case "arrowFuncAssign":
+      return `var ${node.name} = (${node.args
+        .map((x: any) => visit(x))
+        .join(", ")}) => {return ${run(node.value)}}`;
 
     case "integer":
       return `${parseInt(node.value)}`;
 
     case "string":
-      return `"${node.value}"`;
+      return `("${node.value}")`;
+
+    case "comment":
+      return `//${node.value}`;
 
     default:
       return node.value;
   }
 }
 
-module.exports = { run, visit };
+module.exports = { run, visit, compile };
