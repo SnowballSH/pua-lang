@@ -2,13 +2,13 @@
 
 ### To compile the test script:
 
-- `ts-node main.ts <file name>.pua`
+- `node main.js <file name>.pua`
 
 A Javascript file will be generated in the **same directory**
 
 ### To run the test script:
 
-- `node <file name>.js`
+- `node <file name>.pua.js`
 
 Have fun!
 
