@@ -21,7 +21,7 @@ function fn(a, b0) {
   log(a);
   function lo() {
     js``;
-    console.log(`${a} b0`)``;
+    console.log(`${a} b0`)``
   }
   lo();
 }
