@@ -71,8 +71,8 @@ function myFunc (arg1, arg2, arg3) {
 f(x) = (x + 4)
 g(x, y) = (3 * x - y)
 
-log! f<3>
-log! g<5, 7>
+log<f<3>>
+log<g<5, 7>>
 ```
 
 ##### Can't seem to do things in pua right now? Try this:
