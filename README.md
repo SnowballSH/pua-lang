@@ -12,51 +12,77 @@ A Javascript file will be generated in the **same directory**
 
 Have fun!
 
-Example:
+***
+
+## Language Tour
+
+***
+
+##### Comment
 
 ```javascript
-str = "SFSF"
-function fn(a, b0) {
-  log(b0);
-  log(a);
-  function lo() {
-    js``;
-    console.log(`${a} b0`)``
-  }
-  lo();
-}
-
-fn(102908279627925, str);
+// I am a comment in pua
+log! 1  // me too
 ```
 
-Will be compiled to
+##### Numeric expressions
 
 ```javascript
-/*
-Auto-generated code by Pua Programming Language
-*/
-
-const log = console.log;
-const error = console.error;
-
-// Main
-
-var str = "SFSF"
-function fn (a, b0) {
-log(b0);
-log(a);
-function lo() {
-console.log(`${a} b0`);
-}
-lo();
-}
-fn(102908279627925, (str));
+1 + 2 * 3
+(1 + 2) * 3
 ```
 
-And will be evaluated to
+##### String
 
+```javascript
+"I am a simple string in pua"
+'Me too"
+``
+Same!
+But I can do
+Multi lines
+``
 ```
-SFSF
-102908279627925
-102908279627925 b0
+
+##### Invoke functions
+
+```javascript
+log! "Hello,", "world!"
+log < "Hello,", "world!" >
+```
+
+##### Variable Assignment
+
+```python
+a = 3
+B_79po = "I am too!"
+a = "I can be reused"
+```
+
+##### Function Assignment
+
+```javascript
+myFunc = function (arg1, arg2, arg3) {
+  log! arg1, arg2, arg3
+}
+```
+
+##### Lambda Function Assignment
+
+```javascript
+f(x) = (x + 4)
+g(x, y) = (3 * x - y)
+
+log! f<3>
+log! g<5, 7>
+```
+
+##### Can't seem to do things in pua right now? Try this:
+
+```javascript
+x = '   trim me   '
+log! (js"x.trim()")
+
+// Output
+// trim me
 ```
