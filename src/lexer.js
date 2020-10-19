@@ -44,6 +44,7 @@ var lexer = moo.compile({
   lbrace: "{",
   rbrace: "}",
   comma: ",",
+  dot: ".",
   ltri: "<",
   rtri: ">",
   op: ["+", "-", "*", "/"],
@@ -51,6 +52,9 @@ var lexer = moo.compile({
 
   func: "function",
   js: "js",
+  if: "if",
+  else: "else",
+  ret: "return",
 
   iden: /[A-Za-z_][\w]*/,
   eq: "=",

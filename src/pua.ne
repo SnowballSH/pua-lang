@@ -63,6 +63,7 @@ varAssign
 expr
   -> factor       {% id %}
   |  binOp        {% id %}
+  |  ret          {% id %}
 
 factor
   -> %integer     {% id %}
@@ -72,6 +73,17 @@ factor
   |  varAccess    {% id %}
   |  js           {% id %}
   |  wrap         {% id %}
+
+ret
+  -> %ret _ expr
+  {%
+    ([,,a]) => {
+      return {
+        type: "return",
+        value: a,
+      }
+    }
+  %}
 
 wrap
   -> %lparen _ expr _ %rparen

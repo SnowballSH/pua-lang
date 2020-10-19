@@ -131,6 +131,7 @@ var grammar = {
           },
     {"name": "expr", "symbols": ["factor"], "postprocess": id},
     {"name": "expr", "symbols": ["binOp"], "postprocess": id},
+    {"name": "expr", "symbols": ["ret"], "postprocess": id},
     {"name": "factor", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)], "postprocess": id},
     {"name": "factor", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "factor", "symbols": ["funcAccess"], "postprocess": id},
@@ -138,6 +139,14 @@ var grammar = {
     {"name": "factor", "symbols": ["varAccess"], "postprocess": id},
     {"name": "factor", "symbols": ["js"], "postprocess": id},
     {"name": "factor", "symbols": ["wrap"], "postprocess": id},
+    {"name": "ret", "symbols": [(lexer.has("ret") ? {type: "ret"} : ret), "_", "expr"], "postprocess": 
+        ([,,a]) => {
+          return {
+            type: "return",
+            value: a,
+          }
+        }
+          },
     {"name": "wrap", "symbols": [(lexer.has("lparen") ? {type: "lparen"} : lparen), "_", "expr", "_", (lexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
         ([,,exp,,]) => {
           return {

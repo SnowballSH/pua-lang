@@ -1,2 +1,2 @@
-x = '   trim me   '
-log! (js"x.trim()")
+function pow(x) {return x*x}
+log! pow!4
