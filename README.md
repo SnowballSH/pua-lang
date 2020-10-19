@@ -65,6 +65,12 @@ a = "I can be reused"
 function myFunc (arg1, arg2, arg3) {
   log! arg1, arg2, arg3
 }
+
+function pow(x) {
+  return x*x
+}
+log! pow! 4
+// Output: 16
 ```
 
 ##### Lambda Function Assignment
